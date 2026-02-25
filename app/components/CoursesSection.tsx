@@ -2,6 +2,7 @@ const courses = [
   { id: 1, title: "Full-Stack Web Development", instructor: "Yassine K.", price: 149, emoji: "💻", category: "Development" },
   { id: 2, title: "UX/UI Design Masterclass", instructor: "Meriem B.", price: 119, emoji: "🎨", category: "Design" },
   { id: 3, title: "Digital Marketing Strategy", instructor: "Omar T.", price: 89, emoji: "📣", category: "Marketing" },
+  { id: 4, title: "Video editing", instructor: "Elyes Z.", price: 79, emoji: "🎬", category: "Content Creation" },
 ]
 
 export default function CoursesSection() {
