@@ -21,8 +21,9 @@ export async function POST(req: NextRequest) {
       },
     ],
     mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/dashboard?success=true`,
+    success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/dashboard?success=true&courseId=${courseId}&amount=${coursePrice}&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/courses`,
+
   })
 
   return NextResponse.json({ url: session.url })

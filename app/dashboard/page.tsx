@@ -16,9 +16,24 @@ export default function DashboardPage() {
 
       // Check if coming from successful payment
       const params = new URLSearchParams(window.location.search)
-      if (params.get("success") === "true") {
-        setSuccessMessage("🎉 Payment successful! You now have access to the course.")
-      }
+      if (params.get("success") === "true" && params.get("courseId")) {
+  const supabase = createClient()
+  const { data: userData } = await supabase.auth.getUser()
+  
+  const { error } = await supabase.from("purchases").insert({
+    student_id: userData.user?.id,
+    course_id: params.get("courseId"),
+    amount_paid: parseInt(params.get("amount") || "0"),
+  })
+
+  if (error) {
+    console.log("Purchase error:", error.message)
+  } else {
+    console.log("Purchase saved!")
+  }
+
+  setSuccessMessage("🎉 Payment successful! You now have access to the course.")
+}
     }
     getUser()
   }, [])
