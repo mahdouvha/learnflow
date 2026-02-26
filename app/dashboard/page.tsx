@@ -94,18 +94,19 @@ export default function DashboardPage() {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-6">
-            <div className="border border-yellow-400/20 rounded p-6 hover:border-yellow-400 transition cursor-pointer">
-              <div className="text-4xl mb-4">📚</div>
-              <h2 className="text-white font-bold text-xl mb-2">My Courses</h2>
-              <p className="text-gray-400 text-sm">Continue where you left off</p>
-            </div>
-            <div className="border border-yellow-400/20 rounded p-6 hover:border-yellow-400 transition cursor-pointer">
-              <div className="text-4xl mb-4">🏆</div>
-              <h2 className="text-white font-bold text-xl mb-2">My Progress</h2>
-              <p className="text-gray-400 text-sm">Track your learning journey</p>
-            </div>
-          </div>
+          
+           <div className="grid grid-cols-2 gap-6">
+  <a href="/dashboard/my-courses" className="border border-yellow-400/20 rounded p-6 hover:border-yellow-400 transition cursor-pointer block">
+    <div className="text-4xl mb-4">📚</div>
+    <h2 className="text-white font-bold text-xl mb-2">My Courses</h2>
+    <p className="text-gray-400 text-sm">Continue where you left off</p>
+  </a>
+  <div className="border border-yellow-400/20 rounded p-6 hover:border-yellow-400 transition cursor-pointer">
+    <div className="text-4xl mb-4">🏆</div>
+    <h2 className="text-white font-bold text-xl mb-2">My Progress</h2>
+    <p className="text-gray-400 text-sm">Track your learning journey</p>
+  </div>
+</div>
         )}
       </div>
     </main>
