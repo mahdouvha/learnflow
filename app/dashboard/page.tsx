@@ -5,6 +5,7 @@ import { createClient } from "../utils/supabase/client"
 export default function DashboardPage() {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [successMessage, setSuccessMessage] = useState("")
 
   useEffect(() => {
     async function getUser() {
@@ -12,6 +13,12 @@ export default function DashboardPage() {
       const { data } = await supabase.auth.getUser()
       setUser(data.user)
       setLoading(false)
+
+      // Check if coming from successful payment
+      const params = new URLSearchParams(window.location.search)
+      if (params.get("success") === "true") {
+        setSuccessMessage("🎉 Payment successful! You now have access to the course.")
+      }
     }
     getUser()
   }, [])
@@ -33,31 +40,38 @@ export default function DashboardPage() {
   return (
     <main className="bg-black min-h-screen p-8">
       <div className="max-w-4xl mx-auto">
+
+        {successMessage && (
+          <div className="border border-yellow-400 bg-yellow-400/10 rounded p-4 mb-6 text-yellow-400 text-center">
+            {successMessage}
+          </div>
+        )}
+
         <div className="border border-yellow-400/20 rounded p-6 mb-8">
           <p className="text-yellow-400 text-sm uppercase tracking-widest mb-1">
             {role === "instructor" ? "💡 Instructor" : "🎓 Student"}
           </p>
           <h1 className="text-white text-3xl font-bold">Welcome, {fullName}!</h1>
           <p className="text-gray-400 mt-1">{user.email}</p>
-            <button
-  onClick={async () => {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    window.location.href = "/"
-  }}
-  className="mt-4 text-sm text-red-400 hover:text-red-300 underline"
->
-  Log out
-</button>
+          <button
+            onClick={async () => {
+              const supabase = createClient()
+              await supabase.auth.signOut()
+              window.location.href = "/"
+            }}
+            className="mt-4 text-sm text-red-400 hover:text-red-300 underline"
+          >
+            Log out
+          </button>
         </div>
 
         {role === "instructor" ? (
           <div className="grid grid-cols-2 gap-6">
-           <a href="/dashboard/create-course" className="border border-yellow-400/20 rounded p-6 hover:border-yellow-400 transition cursor-pointer block">
-            <div className="text-4xl mb-4">📹</div>
-            <h2 className="text-white font-bold text-xl mb-2">Create Course</h2>
-            <p className="text-gray-400 text-sm">Upload videos and publish your first course</p>
-          </a>
+            <a href="/dashboard/create-course" className="border border-yellow-400/20 rounded p-6 hover:border-yellow-400 transition cursor-pointer block">
+              <div className="text-4xl mb-4">📹</div>
+              <h2 className="text-white font-bold text-xl mb-2">Create Course</h2>
+              <p className="text-gray-400 text-sm">Upload videos and publish your first course</p>
+            </a>
             <div className="border border-yellow-400/20 rounded p-6 hover:border-yellow-400 transition cursor-pointer">
               <div className="text-4xl mb-4">📊</div>
               <h2 className="text-white font-bold text-xl mb-2">My Earnings</h2>
