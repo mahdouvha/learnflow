@@ -9,12 +9,28 @@ export default function CoursesSection() {
   useEffect(() => {
     async function getCourses() {
       const supabase = createClient()
-      const { data, error } = await supabase.from("courses").select("*")
+      const { data } = await supabase.from("courses").select("*")
       if (data) setCourses(data)
       setLoading(false)
     }
     getCourses()
   }, [])
+
+  async function handleEnroll(course) {
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        courseId: course.id,
+        courseTitle: course.title,
+        coursePrice: course.price,
+      }),
+    })
+    const data = await res.json()
+    if (data.url) {
+      window.location.href = data.url
+    }
+  }
 
   if (loading) return (
     <section className="bg-black py-20 px-8 text-center">
@@ -43,7 +59,12 @@ export default function CoursesSection() {
             <p className="text-gray-500 text-xs mb-4 line-clamp-2">{course.description}</p>
             <div className="flex justify-between items-center">
               <span className="text-yellow-400 font-bold text-xl">${course.price}</span>
-              <button className="bg-yellow-400 text-black px-4 py-2 text-sm font-bold rounded">Enroll</button>
+              <button
+                onClick={() => handleEnroll(course)}
+                className="bg-yellow-400 text-black px-4 py-2 text-sm font-bold rounded hover:bg-yellow-300"
+              >
+                Enroll
+              </button>
             </div>
           </div>
         ))}

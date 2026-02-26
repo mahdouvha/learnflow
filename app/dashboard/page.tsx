@@ -53,11 +53,11 @@ export default function DashboardPage() {
 
         {role === "instructor" ? (
           <div className="grid grid-cols-2 gap-6">
-            <div className="border border-yellow-400/20 rounded p-6 hover:border-yellow-400 transition cursor-pointer">
-              <div className="text-4xl mb-4">📹</div>
-              <h2 className="text-white font-bold text-xl mb-2">Create Course</h2>
-              <p className="text-gray-400 text-sm">Upload videos and publish your first course</p>
-            </div>
+           <a href="/dashboard/create-course" className="border border-yellow-400/20 rounded p-6 hover:border-yellow-400 transition cursor-pointer block">
+            <div className="text-4xl mb-4">📹</div>
+            <h2 className="text-white font-bold text-xl mb-2">Create Course</h2>
+            <p className="text-gray-400 text-sm">Upload videos and publish your first course</p>
+          </a>
             <div className="border border-yellow-400/20 rounded p-6 hover:border-yellow-400 transition cursor-pointer">
               <div className="text-4xl mb-4">📊</div>
               <h2 className="text-white font-bold text-xl mb-2">My Earnings</h2>

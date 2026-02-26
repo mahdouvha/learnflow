@@ -12,6 +12,12 @@ export default function CreateCoursePage() {
   const [message, setMessage] = useState("")
 
   async function handleSubmit() {
+    
+    if (!title || !description || !price || !category) {
+      setMessage("Please fill in all fields before publishing.")
+      setLoading(false)
+      return
+    }
     setLoading(true)
     const supabase = createClient()
 
