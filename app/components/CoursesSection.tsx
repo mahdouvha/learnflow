@@ -16,7 +16,7 @@ export default function CoursesSection() {
     getCourses()
   }, [])
 
-  async function handleEnroll(course) {
+  async function handleEnroll(course:any) {
     const res = await fetch("/api/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
