@@ -30,20 +30,23 @@ export default function CreateCoursePage() {
       return
     }
 
-    const { error } = await supabase.from("courses").insert({
-      title,
+      const { data, error } = await supabase.from("courses").insert({      title,
       description,
       price: parseInt(price),
       category,
       emoji,
       instructor_id: user.id,
       instructor_name: user.user_metadata?.full_name || "Instructor",
-    })
+    }).select()
 
     if (error) {
       setMessage(error.message)
     } else {
       setMessage("Course created successfully! 🎉")
+      setMessage("Course created successfully! 🎉")
+      setTimeout(() => {
+      window.location.href = `/dashboard/add-videos/${data[0].id}`
+      }, 1500)
       setTitle("")
       setDescription("")
       setPrice("")
