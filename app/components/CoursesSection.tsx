@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { createClient } from "../utils/supabase/client"
 
 export default function CoursesSection() {
-  const [courses, setCourses] = useState([])
+  const [courses, setCourses] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
