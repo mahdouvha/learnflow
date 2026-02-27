@@ -30,9 +30,11 @@ export default function MyCoursesPage() {
       const courseIds = purchases.map((p) => p.course_id)
 
       const { data: coursesData } = await supabase
-        .from("courses")
-        .select("*")
-        .in("id", courseIds)
+      .from("courses")
+      .select("*")
+      .in("id", courseIds.map(id => id.toString()))
+      console.log("Course IDs from purchases:", courseIds)
+      console.log("Courses found:", coursesData)
 
       if (coursesData) setCourses(coursesData)
       setLoading(false)
@@ -70,9 +72,9 @@ export default function MyCoursesPage() {
                 <div className="text-yellow-400 text-xs uppercase mb-1">{course.category}</div>
                 <h3 className="text-white font-bold text-lg mb-1">{course.title}</h3>
                 <p className="text-gray-400 text-sm mb-4">By {course.instructor_name}</p>
-                <button className="bg-yellow-400 text-black px-4 py-2 text-sm font-bold rounded hover:bg-yellow-300 w-full">
-                  Continue Learning →
-                </button>
+                <a href={`/course/${course.id}`} className="bg-yellow-400 text-black px-4 py-2 text-sm font-bold rounded hover:bg-yellow-300 w-full block text-center">
+  Continue Learning →
+</a>
               </div>
             ))}
           </div>
