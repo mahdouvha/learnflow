@@ -4,7 +4,7 @@ import { use } from "react"
 import { createClient } from "../../utils/supabase/client"
 
 export default function CoursePage({ params }: { params: any }) {
- {
+ 
   const { id } = use(params)
   const [course, setCourse] = useState(null)
   const [videos, setVideos] = useState([])
